@@ -1,7 +1,7 @@
 import bpy
 import requests
 
-coins = ['ADA', 'XRP', 'LINK', 'SOL', 'XMR']
+coins = ['ADA', 'XRP', 'LINK', 'SOL', 'XMR', 'ETH']
 width = 1
 coin_spacing = 1.5
 
@@ -12,6 +12,7 @@ for i, coin in enumerate(coins):
         f'https://min-api.cryptocompare.com/data/price?fsym={coin.rstrip()}&tsyms=USD,EUR')
     coin_data = response.json()
     bpy.ops.mesh.primitive_cube_add(size=1)
+    bpy.ops.rigidbody.object_add()
     coin_bar = bpy.context.object
 
     usd_price = coin_data['USD']
@@ -37,5 +38,4 @@ for i, coin in enumerate(coins):
     bpy.ops.transform.rotate(value=1.5708)
     bpy.ops.transform.translate(value=(i*coin_spacing+0.5, -0.5, 0))
     bpy.context.object.data.body = f"{coin} {usd_price}"
-   
     
